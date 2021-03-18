@@ -1,0 +1,64 @@
+{
+  "jadwalInterview": [
+    {
+      "id_jadwal ": 101,
+      "tgl_pelaksanaan": "2021-03-03",
+      "waktu_awal_pelaksanaan": "10.00",
+      "waktu_akhir_pelaksanaan": "12.00",
+      "media": "gmeet",
+      "tempat_pelaksanaan": "https://meet.google.com/rbj-uuxn-pgi",
+      "peserta": [
+        {
+          "id_peserta": 1,
+          "id_jadwal ": 101,
+          "nama": "affief sudarmadji",
+          "tgl_lahir": "1980-01-31",
+          "pendidikan akhir": "D4",
+          "link_cv": "https://meet.google.com/rbj-uuxn-pgi"
+        },
+        {
+          "id_peserta": 2,
+          "id_jadwal ": 101,
+          "nama": "Fahmi wahyudi",
+          "tgl_lahir": "1992-03-01",
+          "pendidikan akhir": "D4",
+          "link_cv": "https://meet.google.com/rbj-uuxn-pgi"
+        },
+        {
+          "id_peserta": 3,
+          "id_jadwal ": 101,
+          "nama": "Gabe Dimas",
+          "tgl_lahir": "1994-01-31",
+          "pendidikan akhir": "D4",
+          "link_cv": "https://meet.google.com/rbj-uuxn-pgi"
+        }
+      ]
+    },
+    {
+      "id_jadwal ": 102,
+      "tgl_pelaksanaan": "2021-03-05",
+      "waktu_awal_pelaksanaan": "13.00",
+      "waktu_akhir_pelaksanaan": "15.00",
+      "media": "gmeet",
+      "tempat_pelaksanaan": "https://meet.google.com/rbj-uuxn-pgi",
+      "peserta": [
+        {
+          "id_peserta": 4,
+          "id_jadwal ": 102,
+          "nama": "aristio riski",
+          "tgl_lahir": "1992-01-31",
+          "pendidikan akhir": "D4",
+          "link_cv": "https://meet.google.com/rbj-uuxn-pgi"
+        },
+        {
+          "id_peserta": 5,
+          "id_jadwal ": 102,
+          "nama": "tubagus danny",
+          "tgl_lahir": "1989-03-03",
+          "pendidikan akhir": "D4",
+          "link_cv": "https://meet.google.com/rbj-uuxn-pgi"
+        }
+      ]
+    }
+  ]
+}
