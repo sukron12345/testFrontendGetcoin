@@ -1,22 +1,30 @@
 <template>
   <div id="app">
-    <h2>List Jadwal Interview Frontend</h2>
     <table class="table">
       <tr>
         <th>Id</th>
-        <th>Tanggal Pelaksanaan</th>
-        <th>Waktu Pelaksanaan</th>
-        <th>Media</th>
-        <th>Tempat Pelaksanaan</th>
-        <th>Aksi</th>
+        <th>Coin</th>
+        <th>Price</th>
+        <th>24h Volume</th>
+        <th>Market Cap</th>
       </tr>
-      <tr v-for="(result, index) in results" :key="index">
+      <tr
+        v-for="(result, index) in results"
+        :key="index"
+        @click="tampilData(result)"
+      >
         <td>{{ index + 1 }}</td>
-        <td>{{ result.tgl_pelaksanaan }}</td>
-        <td>{{ result.waktu_awal_pelaksanaan + " Sd " + result.waktu_akhir_pelaksanaan }}</td>
-        <td>{{ result.media }}</td>
-        <td>{{ result.tempat_pelaksanaan }}</td>
-        <td><button @click="detailData(result)">Lihat</button></td>
+        <td>
+          <img :src="result.image" width="20px" height="20px" />{{
+            " " + result.name
+          }}
+        </td>
+        <td>{{ "IDR " + result.current_price }}</td>
+        <td>{{ "IDR " + result.price_change_percentage_24h }}</td>
+        <td>{{ "IDR " + result.market_cap }}</td>
+
+        <!-- <td>{{ result.b }}</td> -->
+        <!-- <td>{{ result.b }}</td> -->
       </tr>
     </table>
 
@@ -31,13 +39,49 @@
               <td>24 Hour Trading Vol</td>
             </tr>
             <tr>
-              <td></td>
-              <td></td>
+              <td>{{ "IDR " + tampungData.market_cap }}</td>
+              <td>{{ "IDR " + tampungData.market_cap_change_24h }}</td>
+            </tr>
+            <tr>
+              <td>24 Low / 24h High</td>
+              <td>Circulating Supply</td>
+            </tr>
+            <tr>
+              <td>
+                {{
+                  "IDR " +
+                    tampungData.low_24h +
+                    " / IDR " +
+                    tampungData.high_24h
+                }}
+              </td>
+              <td>
+                {{ tampungData.circulating_supply }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fully diluted valuation</td>
+              <td>Max Supply</td>
+            </tr>
+            <tr>
+              <td>
+                {{ "IDR " + tampungData.fully_diluted_valuation }}
+              </td>
+              <td>
+                {{ tampungData.max_supply }}
+              </td>
             </tr>
           </table>
         </div>
       </div>
     </div>
+
+    <!-- <div>
+      <input type="text" v-model="title" />
+      <input type="text" v-model="body" />
+      <button @click="postData">save</button>
+    </div> -->
   </div>
 </template>
 
@@ -48,7 +92,8 @@ export default {
   data() {
     return {
       results: [],
-
+      title: "",
+      body: "",
       modalShow: false,
       tampungData: {},
     };
@@ -56,17 +101,43 @@ export default {
 
   methods: {
     async getData() {
-      const data = await fetch("http://localhost:3000/jadwalInterview");
+      const data = await fetch(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=100&page=5&sparkline=false"
+      );
       const res = await data.json();
 
-      this.results = res;
-      console.info(res);
+      this.results = res.map((el) => {
+        const emc = el.market_cap;
+        const emd = el.current_price;
+        return {
+          ...el,
+
+          market_cap: emc.toLocaleString("id", "ID"),
+          current_price: emd.toLocaleString("id", "ID"),
+        };
+      });
     },
-    detailData(res) {
+    tampilData(res) {
       this.modalShow = true;
       this.tampungData = res;
       console.info(res);
     },
+    // async postData() {
+    //   const katalog = {
+    //     title: this.title,
+    //     body: this.body,
+    //   };
+    //   console.info(this.title, " ", this.body);
+    //   let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json;charset=utf-8",
+    //     },
+    //     body: JSON.stringify(katalog),
+    //   });
+    //   let result = await response.json();
+    //   alert(result.message);
+    // },
   },
   mounted() {
     this.getData();
@@ -87,8 +158,9 @@ export default {
   margin-top: 60px;
 }
 
-.table > tr {
-  background-color: snow;
+.table > tr:hover {
+  cursor: pointer;
+  background-color: azure;
 }
 .table {
   font-family: arial, sans-serif;
@@ -97,9 +169,9 @@ export default {
 }
 
 .table > tr > th {
-  border: 2px solid #dddddd;
+  border: 1px solid #dddddd;
   text-align: left;
-  padding: 18px;
+  padding: 8px;
 }
 
 .table > tr:nth-child(even) {
